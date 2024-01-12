@@ -109,17 +109,17 @@
 \setbeamertemplate{navigation symbols}{}
 
 % Setting of footline
-\setbeamertemplate{footline}{
-	% \ifnum\insertpagenumber=1
-	% \else
-	\begin{beamercolorbox}[wd=\textwidth,ht=4mm,dp=2mm,rightskip=4mm,leftskip=4mm]{footline}
-		\usebeamerfont{footline}
-		\insertauthor \enspace$\vert$\enspace \inserttitle
-		\hfill
-		\insertframenumber/\inserttotalframenumber
-	\end{beamercolorbox}
-	% \fi
-}
+% \setbeamertemplate{footline}{
+% 	% \ifnum\insertpagenumber=1
+% 	% \else
+% 	\begin{beamercolorbox}[wd=\textwidth,ht=4mm,dp=2mm,rightskip=4mm,leftskip=4mm]{footline}
+% 		\usebeamerfont{footline}
+% 		\insertauthor \enspace$\vert$\enspace \inserttitle
+% 		\hfill
+% 		\insertframenumber/\inserttotalframenumber
+% 	\end{beamercolorbox}
+% 	% \fi
+% }
 
 % Setting of the box
 \newtcolorbox{beamerbox}[2]{boxrule=1pt,	IfBlankTF={#2}{toprule=2mm}{title=#2},colback=#1!5!white,colframe=#1!75!black,left=0em, lefttitle=0em, arc=4pt, enhanced, segmentation engine=path,segmentation style={solid, shorten >=1mm,shorten <=1mm, line width=1pt}}
