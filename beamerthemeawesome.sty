@@ -1,0 +1,637 @@
+\ProvidesPackage{awesome-beamer-theme}[]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{family=awesome,prefix=awesome@}
+
+\newif\ifawesome@english@
+
+\DeclareVoidOption{english}{
+	\awesome@english@true
+}
+
+\DeclareVoidOption{german}{
+	\awesome@english@false
+}
+
+\DeclareBoolOption{notoc}
+\DeclareBoolOption{secslide}
+\DeclareBoolOption{subsecslide}
+
+\DeclareDefaultOption{\PassOptionsToPackage{\CurrentOption}{smile}}
+
+\ProcessKeyvalOptions*
+
+\ifawesome@english@
+	\RequirePackage[english]{babel}
+\else
+	\RequirePackage[ngerman]{babel}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\RequirePackage{fontspec}
+\RequirePackage{calc}
+\RequirePackage{microtype}
+\RequirePackage{etoolbox}
+\RequirePackage{underscore}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins}
+\RequirePackage[
+	color,
+	minted,
+	tikz,
+	htmlunderline,
+	footnote,
+	hyperref,
+	pdftitle={\noexpand\inserttitle},
+	pdfauthor={\noexpand\insertauthor},
+	pdfsubject={\noexpand\inserttitle}
+]{smile}
+
+\RequirePackage{tikz}
+\usetikzlibrary{overlay-beamer-styles, decorations.markings}
+\tikzstyle{every picture}+=[remember picture]
+
+\tikzset{
+	node distance = 5mm,
+	invisible/.style={opacity=0},
+	muted/.style={opacity=0.3},
+	visible on/.style={alt={#1{}{invisible}}},
+	hidden on/.style={alt={#1{invisible}{}}},
+	muted on/.style={alt={#1{muted}{}}},
+	unmuted on/.style={alt={#1{}{muted}}},
+	alt/.code args={<#1>#2#3}{%
+		\alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}
+	},
+}
+
+\RequirePackage[
+	backend=biber,
+	style=alphabetic,
+	sorting=ynt
+]{biblatex}
+\RequirePackage[strict, autostyle]{csquotes}
+\nocite{*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\renewcommand{\maketitle}{
+	\begin{frame}[noframenumbering, plain]
+		\titlepage
+	\end{frame}
+
+	\ifawesome@notoc\else
+		\begin{frame}{Agenda}
+			\tableofcontents
+		\end{frame}
+	\fi
+}
+
+\let\oldft\frametitle
+\renewcommand\frametitle[2][]{
+	\ifx\relax#1\relax\oldft{#2}\else%
+		\oldft{#2\hfill\normalfont\large\color{darkgray}\raisebox{0.3ex}{#1}}%
+	\fi
+}
+
+\BeforeBeginEnvironment{tabular}{
+	\renewcommand{\arraystretch}{1.1}
+	\rowcolors{2}{lightgray}{white}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcounter{framesinsection}
+\newcounter{framesinsubsection}
+\counterwithin*{framesinsection}{section}
+\counterwithin*{framesinsubsection}{subsection}
+
+\newcommand{\stepframe}{
+	\ifbeamer@isfragile
+		\stepcounter{framesinsection}
+		\stepcounter{framesinsubsection}
+	\else%
+		\ifbeamer@noframenumbering\else%
+			\stepcounter{framesinsection}
+			\stepcounter{framesinsubsection}
+		\fi%
+	\fi%
+	\ifnum\theframesinsection=0
+		\setcounter{framesinsection}{1}
+	\fi%
+	\ifnum\theframesinsubsection=0
+		\setcounter{framesinsubsection}{1}
+	\fi%
+}
+
+\BeforeBeginEnvironment{frame}{
+	\stepframe
+}
+\pretocmd{\againframe}{
+	\stepframe
+}{}{}
+
+\newcommand{\refreshcountsinaux}{
+	\immediate\write\@auxout{\global\noexpand\@namedef{s@totalsubsectionframes-\arabic{section}-\arabic{subsection}}{\theframesinsubsection}}
+	\immediate\write\@auxout{\global\noexpand\@namedef{s@totalsectionframes-\arabic{section}}{\theframesinsection}}
+}
+
+\newcounter{secinc}
+\pretocmd{\section}{
+	% At this point, the section command has not yet incremented the section counter, so we need to do this by ourselves
+	\setcounter{secinc}{\thesection + 1}
+	\refreshcountsinaux
+	\immediate\write\@auxout{\global\noexpand\@namedef{s@frameatsecstart-\arabic{secinc}}{\insertframenumber}}
+}{}{}
+
+\newcounter{subsecinc}
+\pretocmd{\subsection}{
+	% At this point, the subsection command has not yet incremented the subsection counter, so we need to do this by ourselves
+	\setcounter{subsecinc}{\thesubsection + 1}
+	\refreshcountsinaux
+	\immediate\write\@auxout{\global\noexpand\@namedef{s@frameatsubsecstart-\arabic{section}-\arabic{subsecinc}}{\insertframenumber}}
+}{}{}
+
+\AtEndDocument{
+	\refreshcountsinaux
+}
+
+\newcommand{\framespersection}{
+	\ifcsdef{s@totalsectionframes-\arabic{section}}{
+		\csname s@totalsectionframes-\arabic{section}\endcsname
+	}{
+		0
+	}
+}
+
+\newcommand{\framespersubsection}{
+	\ifcsdef{s@totalsubsectionframes-\arabic{section}-\arabic{subsection}}{
+		\csname s@totalsubsectionframes-\arabic{section}-\arabic{subsection}\endcsname
+	}{
+		0
+	}
+}
+
+\newcommand{\insertsectionstartframe}{
+	\ifcsdef{s@frameatsecstart-\arabic{section}}{
+		\csname s@frameatsecstart-\arabic{section}\endcsname
+	}{
+		0
+	}
+}
+
+\newcommand{\insertsubsectionstartframe}{
+	\ifcsdef{s@frameatsubsecstart-\arabic{section}-\arabic{subsection}}{
+		\csname s@frameatsubsecstart-\arabic{section}-\arabic{subsection}\endcsname
+	}{
+		0
+	}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\setbeamercolor{alerted text}{fg=accent}
+
+\setbeamercolor{subtitle}{fg=darkgray}
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{framesubtitle}{fg=darkgray}
+
+\setbeamercolor{details}{fg=black}
+\setbeamercolor{author}{fg=black}
+
+\setbeamercolor{section number projected}{bg=black, fg=accent}
+\setbeamercolor{subsection number projected}{fg=lightgray, fg=accent}
+
+\setbeamercolor{structure}{fg=black}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{separator}{fg=accent, bg=accent}
+\setbeamercolor{footline}{bg=lightgray}
+
+\setbeamercolor{block body}{bg=lightgray}
+\setbeamercolor{block title}{bg=black, fg=white}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\setsansfont[
+	Ligatures=TeX,
+	BoldFont={* Medium},
+]{Fira Sans}
+\setmonofont[
+	Path = ./fonts/,
+	Scale = .9,
+	Extension = .ttf,
+	Contextuals=Alternate,
+	BoldFont={*-Bold},
+	UprightFont={*-Regular},
+]{Fira Code}
+
+\setbeamerfont{title}{
+	size=\LARGE,
+	shape=\bfseries\scshape
+}
+
+\setbeamerfont{subtitle}{
+	size=\large,
+	shape=\normalfont
+}
+
+\setbeamerfont{author}{
+	size=\normalsize,
+	shape=\normalfont
+}
+
+\setbeamerfont{details}{
+	size=\footnotesize,
+	shape=\normalfont
+}
+
+\setbeamerfont{footline}{
+	size=\tiny,
+	shape=\normalfont
+}
+
+\setbeamerfont{footnote}{
+	size=\tiny,
+	shape=\normalfont
+}
+
+\setbeamerfont{frametitle}{
+	size=\LARGE,
+	shape=\bfseries\scshape
+}
+
+\setbeamerfont{framesubtitle}{
+	size=\normalsize,
+	shape=\normalfont
+}
+
+\setbeamerfont{block title}{
+	size=\normalfont,
+	shape=\strut
+}
+
+\setbeamerfont{blockdef}{
+	size=\large,
+	shape=\bfseries
+}
+
+\setbeamerfont{description item}{
+	shape=\bfseries
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\setbeamersize{description width=0.5cm}
+
+\setbeamertemplate{caption}{\insertcaption}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{itemize item}[circle]
+\setbeamertemplate{itemize subitem}[circle]
+
+\addtobeamertemplate{frametitle continuation}{\color{gray}(}{)}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+
+\setbeamertemplate{section in toc}{
+	\usebeamercolor[fg]{section number projected}
+	\inserttocsectionnumber.%
+	\usebeamercolor[fg]{normal text}
+	~\inserttocsection
+}
+
+\setbeamertemplate{subsection in toc}{
+	\mbox{
+		\hskip2em%
+		\usebeamercolor[fg]{section number projected}
+		\inserttocsectionnumber.%
+		\usebeamercolor[fg]{subsection number projected}%
+		\textsubscript{\inserttocsubsectionnumber}~%
+		\usebeamercolor[fg]{normal text}
+		\inserttocsubsection
+	}
+}
+
+\setbeamertemplate{separator}{
+	\usebeamercolor{separator}
+	\textcolor{fg}{\rule{.7\textwidth}{\smile@linewidth}}
+}
+
+\setbeamertemplate{frametitle}{
+	\vskip1em\par
+	\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par
+	\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtcolorbox{beamerbox}[2]{boxrule=\smile@linewidth,
+IfBlankTF={#2}{toprule=2mm}{title=#2},colback=#1!5!white,colframe=#1!75!black,left=0em,
+lefttitle=4mm, arc=\smile@rounding, enhanced, segmentation engine=path,
+segmentation style={solid, shorten >=1mm,shorten <=1mm, line width=\smile@linewidth}}
+
+\renewenvironment{definition}[1][\empty]{
+	\begin{beamerbox}{maroon}{#1}
+}{\end{beamerbox}}
+
+\renewenvironment{block}[1][]{
+	\begin{beamerbox}{accent}{#1}
+}{\end{beamerbox}}
+
+\renewenvironment{examples}[1][]{
+	\begin{beamerbox}{green}{#1}
+}{\end{beamerbox}}
+
+\renewenvironment{alertblock}[1][]{
+	\begin{beamerbox}{red}{#1}
+}{\end{beamerbox}}
+
+
+\ensureinfocommand{title}
+\ensureinfocommand{author}
+\ensureinfocommand{background}
+\ensureinfocommand{email}
+\ensureinfocommand{uni}
+\ensureinfocommand{location}
+\renewcommand\inserttitle{\ifdefined\@title\@title\fi}
+\renewcommand\insertshorttitle{\ifdefined\@shorttitle\@shorttitle\fi}
+\renewcommand\insertauthor{\ifdefined\@author\@author\fi}
+\renewcommand\insertshortauthor{\ifdefined\@shortauthor\@shortauthor\fi}
+\newcommand\insertemail[0]{\ifdefined\@email\href{mailto:\@email}{\@email}\fi}
+\newcommand\insertuni[0]{\ifdefined\@uni\@uni\fi}
+\newcommand\insertlocation[0]{\ifdefined\@location\@location\fi}
+
+\tikzfading[
+	name=title page picture fading,
+	left color=transparent!0,
+	right color=transparent!100,
+]
+
+\def\ps@navigation@titlepage{
+	\setbeamertemplate{footline}{}
+	\@nameuse{ps@navigation}
+}
+
+\newlength\lhswidth\setlength{\lhswidth}{.55\textwidth}
+\newlength\titlewidth
+\newlength\subtitlewidth
+\newlength\maxwidth
+\setbeamertemplate{title page}{%
+	\def\titlecontent{\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}%
+	\def\subtitlecontent{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle}%
+	\settowidth\titlewidth\titlecontent%
+	\settowidth\subtitlewidth\subtitlecontent%
+	\setlength\maxwidth{\ifdim\titlewidth>\subtitlewidth\titlewidth\else\subtitlewidth\fi}%
+	\thispagestyle{navigation@titlepage}%
+	\begin{minipage}{\lhswidth}
+		\raggedright%
+		\titlecontent\\
+		\subtitlecontent\\
+		\textcolor{accent}{\rule{\ifdim\maxwidth<\lhswidth\maxwidth\else\lhswidth\fi}{\smile@linewidth}}\\[2em]
+		\usebeamerfont{author}\usebeamercolor[fg]{author}%
+		\insertauthor\\
+		\usebeamerfont{details}\usebeamercolor[fg]{details}%
+		\insertemail\\[2em]
+		\usebeamerfont{details}\usebeamercolor[fg]{details}%
+		\insertinstitute\\
+		\insertuni\\[2em]
+		\insertdate
+	\end{minipage}
+
+	\ifdefined\@background
+		\begin{tikzpicture}[remember picture, overlay]
+			\clip (current page.south east)
+				-- (current page.north east)
+				-- ++(-5.1, 0)
+				-- ++(-3, -\paperheight)
+				-- cycle;
+
+			\node[
+				anchor=south east,
+				inner sep=0,
+				outer sep=0
+			] at (current page.south east) {
+				\includegraphics[height=\paperheight]{\@background}
+			};
+
+			\fill[
+				black, path fading=title page picture fading,
+				fading angle=-15
+			]
+			(current page.south east)
+			rectangle
+			++(-10, \dimexpr\paperheight+1cm);
+		\end{tikzpicture}
+	\fi
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{pagenumbertolinkto}
+\setbeamertemplate{footline}{
+	\leavevmode%
+	\hbox{%
+		\usebeamerfont{footline}%
+		\begin{beamercolorbox}[
+			wd=\textwidth,
+			ht=2.5ex,
+			dp=1ex
+		]{footline}%
+			\hspace{0.3cm}%
+			\insertshortauthor~%
+			\hfill%
+			\hyperlinkdocumentstart{\insertshorttitle}\hspace{.7em}$\cdot$\hspace{.7em}\insertsection%
+			\ifx\insertsubsection\empty
+				\hspace{.4em}%
+				\ifnum\framespersection>1%
+					\foreach \i in {1, ..., \framespersection}{%
+						\ifnum \i=\theframesinsection%
+							~$\bullet$%
+						\else%
+							\setcounter{pagenumbertolinkto}{\i + \insertsectionstartframe}%
+							~\hyperlink{page:\thepagenumbertolinkto}{$\circ$}%
+						\fi%
+					}%
+				\fi%
+			\else
+				\hspace{.7em}$\cdot$\hspace{.7em}\insertsubsection%
+				\hspace{.7em}%
+				\ifnum\framespersubsection>1%
+					\foreach \i in {1, ..., \framespersubsection}{%
+						\ifnum \i=\theframesinsubsection%
+							~$\bullet$%
+						\else%
+							\setcounter{pagenumbertolinkto}{\i + \insertsubsectionstartframe}%
+							~\hyperlink{page:\thepagenumbertolinkto}{$\circ$}%
+						\fi%
+					}%
+				\fi%
+			\fi%
+			\hfill%
+			\colorbox{accent}{
+				\color{white}
+				\hspace{0.3cm}
+				\ifawesome@english@
+					Page
+				\else
+					Seite
+				\fi
+				~\insertframenumber~/~\inserttotalframenumber\hspace{0.3cm}
+			}%
+		\end{beamercolorbox}%
+	}
+	\vskip0pt%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\ps@navigation@toc{
+	\setbeamertemplate{footline}{
+		\leavevmode%
+		\hbox{%
+		\usebeamerfont{footline}%
+		\begin{beamercolorbox}[
+			wd=\textwidth,
+			ht=2.5ex,
+			dp=1ex
+		]{footline}%
+			\hspace{0.3cm}%
+			\insertshortauthor%
+			\hfill%
+			\hyperlinkdocumentstart{\insertshorttitle}%
+			\hfill%
+			\colorbox{accent}{
+				\color{white}
+				\hspace{0.3cm}%
+				Agenda
+				\hspace{0.3cm}
+			}%
+		\end{beamercolorbox}%
+	}
+	\vskip0pt%
+	}
+	\@nameuse{ps@navigation}
+}
+
+\def\ps@navigation@sec{
+	\setbeamertemplate{footline}{
+		\leavevmode%
+		\hbox{%
+		\usebeamerfont{footline}%
+		\begin{beamercolorbox}[
+			wd=\textwidth,
+			ht=2.5ex,
+			dp=1ex
+		]{footline}%
+			\hspace{0.3cm}%
+			\insertshortauthor%
+			\hfill%
+			\hyperlinkdocumentstart{\insertshorttitle}%
+			\hfill%
+			\colorbox{accent}{
+				\color{white}
+				\hspace{0.3cm}%
+				\ifawesome@english@
+				Section
+				\else
+				Kapitel
+				\fi
+				~\thesection
+				\ifx\insertsubsection\empty\else
+					.\thesubsection
+				\fi
+				\hspace{0.3cm}
+			}%
+		\end{beamercolorbox}%
+	}
+	\vskip0pt%
+	}
+	\@nameuse{ps@navigation}
+}
+
+\pretocmd{\tableofcontents}{
+	\thispagestyle{navigation@toc}
+}{}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Kinda hacky, but AtBeginEnvironment does not work with beamer tex.stackexchange.com/a/436338/286979
+\pretocmd\beamer@checkframetitle{
+	\transfade[duration=0.1]
+	\ifbeamer@isfragile
+		\label{page:\insertframenumber}
+	\else%
+		\ifbeamer@noframenumbering\else%
+			\hypertarget{page:\insertframenumber}{}
+		\fi%
+	\fi%
+}
+
+
+\AtBeginSection[]{
+	\ifawesome@secslide
+		\begin{frame}[c, noframenumbering]
+			\thispagestyle{navigation@sec}%
+			\centering%
+			\usebeamerfont{title}%
+			\usebeamercolor[fg]{section number projected}%
+			\scalebox{1.3}{ \raisebox{-1pt}{\insertsectionnumber}}.~%
+			\usebeamercolor[fg]{title}%
+			\insertsectionhead\par
+		\end{frame}
+	\fi
+}
+
+\AtBeginSubsection[]{
+	\ifawesome@subsecslide
+		\begin{frame}[c, noframenumbering]
+			\thispagestyle{navigation@sec}%
+			\centering%
+			\usebeamerfont{title}%
+			\usebeamercolor[fg]{section number projected}%
+			\scalebox{1.3}{\raisebox{-1pt}{\insertsectionnumber}}.%
+			\usebeamercolor[fg]{subsection number projected}%
+			\textsubscript{\insertsubsectionnumber}~%
+			\usebeamercolor[fg]{title}%
+			\insertsubsectionhead\par
+		\end{frame}
+	\fi
+}
+
+\AtEndDocument{
+	{\setbeamercolor{background canvas}{bg=accent}
+	\begin{frame}[b, noframenumbering]
+		\color{white}
+		\thispagestyle{navigation@titlepage}
+		\Large\textbf{\insertauthor}
+		\vskip0.5em
+		\scriptsize\insertlocation,~\insertdate
+		\hfill
+		\insertemail
+	\end{frame}}
+}

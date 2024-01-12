@@ -1,0 +1,186 @@
+% Template for presentations with LaTeX beamer
+
+% Adapted by Derui ZHAO, zhaoderui@live.cn
+
+% ==== * ==== * ====
+
+% This program is free: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by thee Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+% This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+% You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+\ProvidesPackage{beamerthemeAarhus}[Version 0.20231217]
+
+\RequirePackage{etoolbox}
+\RequirePackage{tikz}
+\RequirePackage{graphicx}
+\RequirePackage{calc}
+\RequirePackage{microtype}
+\RequirePackage{underscore}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage[english]{babel}
+\RequirePackage{colorAarhus}
+\RequirePackage{ifthen}
+\RequirePackage{fontspec}
+
+% Setting of reference
+\RequirePackage[backend=biber,style=alphabetic,sorting=ynt]{biblatex}
+\RequirePackage[strict, autostyle]{csquotes}
+% \nocite{*} % Include all references listed in the .bib file, regardless of whether they are referenced in the document body.
+
+% Setting of colors
+% NOTE! Beamer colors should be set in the preamble. It often works fine in the document itself, but NOT for normal text foreground.
+% \themecolor should only be called from the preamble.
+
+\newcommand{\themecolor}[1]{
+	\ifstrequal{#1}{blue}{
+		\setbeamercolor{author}{fg=black}
+		\setbeamercolor{date}{fg=black}
+
+		\setbeamercolor{title}{fg=blue}
+		\setbeamercolor{subtitle}{fg=black}
+		\setbeamercolor{frametitle}{fg=blue}
+		\setbeamercolor{framesubtitle}{fg=darkGrey}
+
+		\setbeamercolor{structure}{fg=black}
+		\setbeamercolor{normal text}{fg=black}
+
+		\setbeamercolor{footline}{fg=white,bg=blue}
+
+		\setbeamercolor{block body}{bg=lightGrey}
+		\setbeamercolor{block title}{bg=darkBlue,fg=white}
+	}
+}
+
+% Setting of font
+\setsansfont[
+	Path=./fonts/,
+	Extension=.ttf,
+	BoldFont={*-Bold},
+	UprightFont={*-Rg}
+]{AUPassata}
+\setmonofont[
+	Path=./fonts/,
+	Scale=.8,
+	Extension=.ttf,
+]{CascadiaCode}
+
+\setbeamerfont{title}{
+	size=\LARGE,
+	shape=\bfseries\scshape
+}
+\setbeamerfont{subtitle}{
+	size=\Large,
+	shape=\normalfont
+}
+\setbeamerfont{author}{
+	size=\normalsize,
+	shape=\normalfont
+}
+\setbeamerfont{date}{
+	size=\normalsize,
+	shape=\normalfont
+}
+\setbeamerfont{frametitle}{
+	size=\Large,
+	shape=\bfseries
+}
+\setbeamerfont{framesubtitle}{
+	size=\normalsize,
+	shape=\normalfont
+}
+\setbeamerfont{footline}{
+	size=\tiny,
+	shape=\normalfont
+}
+\setbeamerfont{footnote}{
+	size=\tiny,
+	shape=\normalfont
+}
+
+% Setting of the appearence and layout
+
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
+\setbeamertemplate{itemize item}[circle]
+\setbeamertemplate{itemize subitem}[circle]
+
+\setbeamertemplate{navigation symbols}{}
+
+% Setting of footline
+\setbeamertemplate{footline}{
+	% \ifnum\insertpagenumber=1
+	% \else
+	\begin{beamercolorbox}[wd=\textwidth,ht=4mm,dp=2mm,rightskip=4mm,leftskip=4mm]{footline}
+		\usebeamerfont{footline}
+		\insertauthor \enspace$\vert$\enspace \inserttitle
+		\hfill
+		\insertframenumber/\inserttotalframenumber
+	\end{beamercolorbox}
+	% \fi
+}
+
+% Setting of the box
+\newtcolorbox{beamerbox}[2]{boxrule=1pt,	IfBlankTF={#2}{toprule=2mm}{title=#2},colback=#1!5!white,colframe=#1!75!black,left=0em, lefttitle=0em, arc=4pt, enhanced, segmentation engine=path,segmentation style={solid, shorten >=1mm,shorten <=1mm, line width=1pt}}
+
+\renewenvironment{block}[1][]{\begin{beamerbox}{blue}{#1}}{\end{beamerbox}}
+
+\renewenvironment{definition}[1][]{\begin{beamerbox}{cyan}{#1}}{\end{beamerbox}}
+
+\renewenvironment{examples}[1][]{\begin{beamerbox}{green}{#1}}{\end{beamerbox}}
+
+\renewenvironment{alertblock}[1][]{\begin{beamerbox}{red}{#1}}{\end{beamerbox}}
+
+% Setting of page
+% Place the logo in each slide's top left area
+\pgfdeclareimage[width=0.08\paperwidth]{logo}{image/aulogo}
+\newcommand{\@logo}{logo}
+\setbeamertemplate{headline}{
+	\begin{beamercolorbox}[wd=0.08\paperwidth,ht=0.12\paperwidth,leftskip=0.04\paperwidth,rightskip=0pt]{}
+		\vspace{0.04\paperwidth}
+		\pgfuseimage{\@logo}
+	\end{beamercolorbox}
+}
+
+% Setting of title page
+\setbeamertemplate{title page}{
+	\begin{tikzpicture}[remember picture,overlay]
+		\fill[blue]
+		(\paperwidth,0.6\paperheight) --
+		(0.2\paperwidth,-\paperheight) --
+		(\paperwidth,-\paperheight) --
+		cycle;
+		\node at (0.75\paperwidth,-0.55\paperheight) {
+			\includegraphics[height=0.1\paperheight]{image/aulogo_uk_var2_white.png}
+		};
+	\end{tikzpicture}
+
+	\vskip0pt plus 1filll
+	\hspace{-5mm}
+	\vspace{30mm}
+	\begin{beamercolorbox}[wd=0.72\textwidth,sep=10pt,leftskip=0pt]{title}
+		\raggedright
+		{\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
+
+		{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+
+		{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor}
+
+		{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate}
+	\end{beamercolorbox}
+}
+
+% Setting of frame page
+% Setting of frame title
+% Define frame title and subtitle layout
+\setbeamertemplate{frametitle}{
+	\vspace*{-4.5ex}
+	\begin{beamercolorbox}[leftskip=1.5cm,sep=0pt]{frametitle}
+		\usebeamerfont{frametitle}\insertframetitle
+	\end{beamercolorbox}
+	\vspace*{-1ex}
+	\begin{beamercolorbox}[leftskip=1.6cm,sep=0pt]{framesubtitle}
+		\usebeamerfont{framesubtitle}\insertframesubtitle
+	\end{beamercolorbox}
+}

@@ -1,0 +1,13 @@
+\frametitle{Boxes}
+    \begin{block}[Some title]
+        This is an important informationThis is an important informationThis is an important informationThis is an important informationThis is an important informationThis is an important information
+    \end{block}
+    \begin{definition}[de]
+        This is an important information
+    \end{definition}
+    \begin{examples}[ex]
+        This is an important information
+    \end{examples}
+    \begin{alertblock}[al]
+        This is an important information
+    \end{alertblock}
