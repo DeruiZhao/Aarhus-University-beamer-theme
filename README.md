@@ -1,6 +1,7 @@
 # Aarhus University Beamer Theme
 
-![Static Badge](https://img.shields.io/badge/Derui-ZHAO?logo=LinkedIn&label=LinkedIn&link=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fderui-zhao-043387a7%2F)
+[![Static Badge](https://img.shields.io/badge/Derui-ZHAO?style=flat&logo=LinkedIn&label=LinkedIn&labelColor=002546&color=003d73)
+](https://www.linkedin.com/in/derui-zhao-043387a7/)
 
 ## 📜Introduction
 
