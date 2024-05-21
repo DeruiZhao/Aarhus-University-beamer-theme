@@ -1,0 +1,199 @@
+\ProvidesPackage{beamerthemeAarhus}[Version 0.20240520]
+
+% Required packages
+\RequirePackage{tikz}
+\RequirePackage{graphicx}
+\RequirePackage{colorAarhus}
+\RequirePackage{tcolorbox}
+\RequirePackage{xcolor}
+\RequirePackage{colortbl}
+\RequirePackage{hyperref}
+\RequirePackage{amsmath}
+
+% Color
+\setbeamercolor{title}{fg=blue}
+\setbeamercolor{subtitle}{fg=darkBlue}
+\setbeamercolor{author}{fg=darkBlue}
+\setbeamercolor{date}{fg=darkBlue}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{framesubtitle}{fg=darkGrey}
+
+\setbeamercolor{structure}{fg=black}
+\setbeamercolor{normal text}{fg=black}
+
+\setbeamercolor{footline}{fg=white,bg=blue}
+
+\setbeamercolor{block body}{bg=lightGrey}
+\setbeamercolor{block title}{bg=darkBlue,fg=white}
+
+% Font
+\RequirePackage{helvet}
+\RequirePackage{euler}
+\RequirePackage[osf]{libertinus}
+\renewcommand{\sfdefault}{phv}
+\RequirePackage{FiraMono}
+\RequirePackage[T1]{fontenc}
+\usefonttheme{professionalfonts}
+
+\setbeamerfont{title}{
+    size=\LARGE,
+    shape=\bfseries\scshape
+}
+\setbeamerfont{subtitle}{
+    size=\Large,
+    shape=\normalfont
+}
+\setbeamerfont{author}{
+    size=\small,
+    shape=\bfseries\rmfamily
+}
+\setbeamerfont{date}{
+    size=\small,
+    shape=\bfseries\rmfamily
+}
+\setbeamerfont{frametitle}{
+    size=\Large,
+    shape=\bfseries
+}
+\setbeamerfont{framesubtitle}{
+    size=\normalsize,
+    shape=\normalfont
+}
+\setbeamerfont{footline}{
+    size=\tiny,
+    shape=\normalfont
+}
+\setbeamerfont{footnote}{
+    size=\tiny,
+    shape=\normalfont
+}
+
+% Navigation symbols (OFF)
+\setbeamertemplate{navigation symbols}{}
+
+% Page headline
+% Place the logo in each slide's top left area
+\setbeamertemplate{headline}{
+    \begin{beamercolorbox}[wd=.1\paperheight,ht=.12\paperheight,leftskip=.02\paperheight,rightskip=0pt]{}
+        \includegraphics[height=.1\paperheight]{image/aulogo.png}
+    \end{beamercolorbox}
+}
+
+% Paragraph spacing
+\setlength{\parskip}{\baselineskip}
+
+% Frame title
+\setbeamertemplate{frametitle}{
+    \vspace*{-.1\paperheight}
+    \begin{beamercolorbox}[leftskip=.04\paperheight,sep=0pt]{frametitle}
+        \usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle
+
+        \usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle
+    \end{beamercolorbox}
+}
+
+% Title page
+\setbeamertemplate{title page}{
+    \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+        \node [anchor=east] at (\paperwidth, 0.5\paperheight){
+            \includegraphics[height=.97\paperheight]{image/A.png}
+        };
+        \node [anchor=south east] at (\paperwidth, 0){
+            \includegraphics[height=.17\paperheight]{image/aulogo_uk_var1_blue_update.png}
+        };
+    \end{tikzpicture}
+
+    \begin{tabular}{p{0.7\textwidth}}
+        \usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle          \\
+        \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle \\
+        \\
+        \usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor       \\
+        \usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate
+    \end{tabular}
+}
+
+% Footline
+\setbeamertemplate{footline}{
+    \ifnum\insertpagenumber=1
+    \else
+        \begin{beamercolorbox}[wd=\paperwidth,ht=.03\paperheight,dp=.015\paperheight,rightskip=.01\paperwidth,leftskip=.01\paperwidth]{footline}
+            \usebeamerfont{footline}
+            \insertauthor \enspace$\vert$\enspace \inserttitle
+            \hfill
+            \insertframenumber/\inserttotalframenumber
+        \end{beamercolorbox}
+    \fi
+}
+
+% Block
+\newtcolorbox{beamerbox}[2]{boxrule=1pt,IfBlankTF={#2}{toprule=2pt}{title=#2},colback=#1!5!white,colframe=#1!75!black,left=0em, lefttitle=0em, arc=1pt}
+
+\renewenvironment{block}[1][]{\begin{beamerbox}{blue}{#1}}{\end{beamerbox}}
+
+\renewenvironment{definition}[1][]{\begin{beamerbox}{cyan}{#1}}{\end{beamerbox}}
+
+\renewenvironment{example}[1][]{\begin{beamerbox}{green}{#1}}{\end{beamerbox}}
+
+\renewenvironment{alert}[1][]{\begin{beamerbox}{red}{#1}}{\end{beamerbox}}
+
+% Define sectioning and table of contents
+\setbeamerfont{section in toc}{size=\large,series=\bfseries}
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamerfont{subsection in toc}{size=\small}
+\setbeamercolor{subsection in toc}{fg=gray}
+
+\setbeamertemplate{section in toc}[sections numbered]
+
+\setcounter{tocdepth}{2}
+
+\AtBeginSection[]
+{
+    \begingroup
+    \begin{frame}{Contents}
+        \hypersetup{hidelinks}
+        \tableofcontents[currentsection, hideothersubsections]
+
+        \begin{tikzpicture}[remember picture, overlay, shift={(current page.east)}]
+            \node [anchor=center, opacity=0.5] at (0,0){
+                \includegraphics[height=.86\paperheight]{image/aulogo.png}
+            };
+        \end{tikzpicture}
+    \end{frame}
+    \endgroup
+}
+
+% Hyperlink
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+% End page
+\newcommand{\acknowledgement}{
+    \begin{frame}[plain]
+        \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+            \fill[blue] (current page.south west) rectangle (current page.north east);
+            \draw[lightBlue, line width=2pt] (\paperwidth/3,\paperheight/2) -- (\paperwidth*2/3,\paperheight/2);
+            \node [anchor=center, opacity=0.5] at (current page.west){
+                \includegraphics[height=.86\paperheight]{image/aulogo.png}
+            };
+            \node [anchor=center, opacity=0.5] at (current page.east){
+                \includegraphics[height=.86\paperheight]{image/aulogo.png}
+            };
+        \end{tikzpicture}
+        \centering
+        \vfill
+        \textcolor{white}{\Huge \textbf{THANK YOU!}}
+        \vfill
+        \textcolor{lightGrey}{\Large \textbf{Q \& A}}
+        \vfill
+    \end{frame}
+}
+
+% Symbol of itemize
+\setbeamertemplate{itemize item}{\textcolor{blue}{$\diamond$}}
+\setbeamertemplate{itemize subitem}{\textcolor{blue}{$\diamond$}}
+\setbeamertemplate{itemize subsubitem}{\textcolor{blue}{$\diamond$}}

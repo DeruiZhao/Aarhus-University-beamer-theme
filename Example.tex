@@ -1,0 +1,171 @@
+\documentclass[aspectratio=1610]{beamer}
+
+\usetheme{Aarhus}
+
+\usepackage{listings}
+
+% Information to be included in the title page
+\title{Aarhus university beamer template}
+\subtitle{Generate slides via \LaTeX}
+\author{Derui ZHAO}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+    \frametitle{Overview}
+    This beamer theme references both the \href{https://github.com/LukasPietzschmann/awesome-beamer}{Awesome Beamer} and \href{https://github.com/ProofLabs/StevensBeamerLatexTemplate}{Stevens Institute of Technology Beamer} and has undergone a complete redesign of the pages. The design style is characterised by simplicity and clarity.
+
+    The subsequent sections will provide a concise overview of the \LaTeX\ and beamer package tools for creating slides, accompanied by a brief introduction to the relevant design background.
+\end{frame}
+
+\section{Introduction}
+
+\subsection{Overview of \LaTeX\ Beamer}
+
+\begin{frame}
+    \frametitle{Overview of \LaTeX\ Beamer}
+    The \LaTeX\ Beamer class is a powerful and flexible tool for creating professional presentations within the \LaTeX\ typesetting system. Designed to produce high-quality slides for academic and professional use, Beamer allows for the seamless integration of mathematical notation, bibliographies, and complex formatting. It supports themes and color customization, making it adaptable to various presentation styles. The Beamer class is widely used in academia due to its ability to create visually appealing, content-rich slides that maintain the typographic standards of \LaTeX.
+\end{frame}
+
+\subsection{Beamer vs. PowerPoint}
+
+\begin{frame}
+    \frametitle{Beamer vs. PowerPoint}
+    \framesubtitle{In tabular form}
+    \begin{table}
+        \arrayrulewidth=1pt
+        \arrayrulecolor{blue}
+        \begin{tabular}{l p{.35\textwidth} p{.35\textwidth}}
+            \hline
+            \rowcolor{lightBlue}
+            \textbf{Feature} & \textbf{Beamer}                                & \textbf{PowerPoint}                      \\
+            \hline
+            Typesetting      & Utilise \LaTeX\ for professional typesetting   & WYS$\vert$WYG                            \\
+            Mathematical     & Excellent support                              & Limited support                          \\
+            Version control  & Easily integrates with version control systems & Lacks robust version control integration \\
+            Graphics         & Require some \LaTeX\ knowledge                 & Intuitive drag-and-drop interface        \\
+            Learning curve   & Steeper                                        & Easy                                     \\
+            Cost             & Open-source and free                           & Require license                          \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\section{Getting started}
+
+\subsection{Basic framework}
+
+\begin{frame}[fragile]
+    \frametitle{The basic framework of Beamer}
+    To start working with \textit{Aarhus Beamer}, start a \LaTeX\ document with the preamble:
+    \begin{block}[Minimum Aarhus Beamer Document]
+        \lstset{
+            language=[LaTeX]Tex,
+            breakautoindent=true,
+            numbers=left,
+            aboveskip=0pt,
+            belowskip=0pt,
+            basicstyle=\ttfamily,
+            keywordstyle=\color{blue}\slshape,
+            morekeywords={usetheme}
+        }
+        \begin{lstlisting}
+\documentclass{beamer}
+\usetheme{Aarhus}
+\begin{document}
+    ...
+\end{document}
+        \end{lstlisting}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Title page}
+    In order to set a typical title page, one must issue certain commands in the preamble:
+    \begin{block}[The commands for the Title page]
+        \lstset{
+            language=[LaTeX]Tex,
+            breakautoindent=true,
+            numbers=left,
+            aboveskip=0pt,
+            belowskip=0pt,
+            basicstyle=\ttfamily,
+            keywordstyle=\color{blue}\slshape,
+            morekeywords={subtitle}
+        }
+        \begin{lstlisting}
+\title{Aarhus university beamer template}
+\subtitle{Generate slides via \LaTeX}
+\author{Derui ZHAO}
+\date{\today}
+        \end{lstlisting}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Formula}
+    The following example illustrates the use of a mathematical formula, specifically Euler's formula.
+    \begin{equation}
+        e^{i\pi}+1=0
+    \end{equation}
+
+    A more complex example is shown below:
+    \begin{equation}
+        F(\omega) = \mathcal{F}[f(t)] = \int_{-\infty}^{\infty} f(t) e^{-i\omega t} dt
+    \end{equation}
+\end{frame}
+
+\subsection{Built-in function}
+
+\begin{frame}[fragile]
+    \frametitle{Block}
+    This theme comprises 4 distinct types of blocks: block (\texttt{block}), definition (\texttt{definition}), example (\texttt{example}) and alert (\texttt{alert}).
+    \begin{block}[Block]
+        This is block.
+    \end{block}
+    \begin{definition}[Definition]
+        Definition block.
+    \end{definition}
+    \begin{example}[Example]
+        Example block.
+    \end{example}
+    \begin{alert}[Alert]
+        Alert block.
+    \end{alert}
+\end{frame}
+
+\section{Design background}
+
+\begin{frame}
+    \frametitle{Colours}
+    The colours of this theme have been selected in accordance with the colour palette of Aarhus University. The list colours is as follows:
+    \begin{table}
+        \begin{tabular}{r l p{.2\textwidth} r l}
+            \textcolor{blue}{\rule{1em}{1em}}    & Blue    &  & \textcolor{lilla}{\rule{1em}{1em}}  & Lilla  \\
+            \textcolor{cyan}{\rule{1em}{1em}}    & Cyan    &  & \textcolor{turkis}{\rule{1em}{1em}} & Turkis \\
+            \textcolor{green}{\rule{1em}{1em}}   & Green   &  & \textcolor{yellow}{\rule{1em}{1em}} & Yellow \\
+            \textcolor{orange}{\rule{1em}{1em}}  & Orange  &  & \textcolor{red}{\rule{1em}{1em}}    & Red    \\
+            \textcolor{magenta}{\rule{1em}{1em}} & Magenta &  & \textcolor{grey}{\rule{1em}{1em}}   & Grey   \\
+        \end{tabular}
+    \end{table}
+    Each colour is available in two variants, designated as light and dark. The light colour is comprised of 95\% white, while the dark colour is composed of 25\% black.
+
+    In the nomenclature of colour, the camel case is typically employed. That is to say, if the colour is \texttt{blue}, the lighter version is named \texttt{lightBlue}, and the dark version is named \texttt{darkBlue}.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Fonts}
+    \begin{itemize}
+        \item The default font is \textbf{Helvetica}, a sans-serif font.
+        \item The serif font is \textbf{Libertinus}.
+        \item The typewriter font, i.e. mono font, is \textbf{Fira Mono}.
+        \item The mathematical font employs \textbf{Euler}.
+    \end{itemize}
+\end{frame}
+
+\acknowledgement
+
+\end{document}

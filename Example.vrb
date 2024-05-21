@@ -1,0 +1,14 @@
+\frametitle{Block}
+    This theme comprises 4 distinct types of blocks: block (\texttt{block}), definition (\texttt{definition}), example (\texttt{example}) and alert (\texttt{alert}).
+    \begin{block}[Block]
+        This is block.
+    \end{block}
+    \begin{definition}[Definition]
+        Definition block.
+    \end{definition}
+    \begin{example}[Example]
+        Example block.
+    \end{example}
+    \begin{alert}[Alert]
+        Alert block.
+    \end{alert}
