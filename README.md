@@ -9,9 +9,12 @@ The Aarhus University LaTeX Beamer theme features a clean and straightforward de
 <center>
 <img src="Example figure\Example-01.jpg" width="100%" alt="Title page">
 </center>
-<center>
-<img src="Example figure\Example-03.jpg" width="50%" alt="Contents and Section page"><img src="Example figure\Example-10.jpg" width="50%" alt="Blocks">
-</center>
+
+<div style="display: flex; justify-content: center; align-items: center;">
+    <img src="Example figure/Example-03.jpg" width="50%" alt="Contents and Section page">
+    <img src="Example figure/Example-10.jpg" width="50%" alt="Blocks">
+</div>
+
 <center>
 <img src="Example figure\Example-14.jpg" width="100%" alt="End page">
 </center>
