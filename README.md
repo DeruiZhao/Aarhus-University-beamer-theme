@@ -1,5 +1,7 @@
 # Aarhus University Beamer Theme
 
+![Static Badge](https://img.shields.io/badge/Derui-ZHAO?logo=LinkedIn&label=LinkedIn&link=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fderui-zhao-043387a7%2F)
+
 ## 📜Introduction
 
 The Aarhus University LaTeX Beamer theme features a clean and straightforward design. For those interested in LaTeX templates or themes for presentations, repositories on GitHub offer a variety of options.
