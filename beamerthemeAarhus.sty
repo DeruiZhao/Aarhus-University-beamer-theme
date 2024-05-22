@@ -9,6 +9,7 @@
 \RequirePackage{colortbl}
 \RequirePackage{hyperref}
 \RequirePackage{amsmath}
+\usepackage[perpage,para,symbol*,multiple]{footmisc}
 
 % Color
 \setbeamercolor{title}{fg=blue}
@@ -30,7 +31,7 @@
 % Font
 \RequirePackage{helvet}
 \RequirePackage{euler}
-\RequirePackage[osf]{libertinus}
+\RequirePackage{libertinus}
 \renewcommand{\sfdefault}{phv}
 \RequirePackage{FiraMono}
 \RequirePackage[T1]{fontenc}
@@ -66,7 +67,7 @@
 }
 \setbeamerfont{footnote}{
     size=\tiny,
-    shape=\normalfont
+    shape=\normalfont\rmfamily
 }
 
 % Navigation symbols (OFF)
@@ -197,3 +198,6 @@
 \setbeamertemplate{itemize item}{\textcolor{blue}{$\diamond$}}
 \setbeamertemplate{itemize subitem}{\textcolor{blue}{$\diamond$}}
 \setbeamertemplate{itemize subsubitem}{\textcolor{blue}{$\diamond$}}
+
+% Footnote
+\renewcommand{\footnotesize}{\tiny\selectfont\rmfamily}
