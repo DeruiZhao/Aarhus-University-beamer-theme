@@ -1,7 +1,8 @@
-\ProvidesPackage{beamerthemeAarhus}[Version 0.20240522]
+\ProvidesPackage{beamerthemeAarhus}[Version 0.20240529]
 
 % Required packages
 \RequirePackage{tikz}
+\usetikzlibrary{calc}
 \RequirePackage{graphicx}
 \RequirePackage{colorAarhus}
 \RequirePackage{tcolorbox}
@@ -9,7 +10,7 @@
 \RequirePackage{colortbl}
 \RequirePackage{hyperref}
 \RequirePackage{amsmath}
-\usepackage[perpage,para,symbol*,multiple]{footmisc}
+\RequirePackage[perpage,para,symbol*,multiple]{footmisc}
 
 % Color
 \setbeamercolor{title}{fg=blue}
@@ -33,7 +34,7 @@
 \RequirePackage{euler}
 \RequirePackage[osf]{libertinus}
 \renewcommand{\sfdefault}{phv}
-\RequirePackage{FiraMono}
+\RequirePackage{sourcecodepro}
 \RequirePackage[T1]{fontenc}
 \usefonttheme{professionalfonts}
 
@@ -122,8 +123,14 @@
             \usebeamerfont{footline}
             \insertauthor \enspace$\vert$\enspace \inserttitle
             \hfill
-            \insertframenumber/\inserttotalframenumber
+            \textbf{\insertframenumber}\ /\ \inserttotalframenumber
         \end{beamercolorbox}
+
+        % Progress
+        \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+            \pgfmathsetmacro{\progress}{\insertframenumber/\inserttotalframenumber}
+            \shade[left color = blue, right color = lightBlue, opacity = 0.75, shading angle = 135, rounded corners = .0025\paperheight] (0, .04\paperheight) rectangle (\progress\paperwidth, .045\paperheight);
+        \end{tikzpicture}
     \fi
 }
 

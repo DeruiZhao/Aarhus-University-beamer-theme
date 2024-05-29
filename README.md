@@ -10,19 +10,19 @@ The Aarhus University LaTeX Beamer theme features a clean and straightforward de
 ## 🧩Functional example
 
 <center>
-<img src="Example figure\Example-01.jpg" width="100%" alt="Title page">
+<img src="Example figure\Example (1).jpg" width="100%" alt="Contents and Section page">
 </center>
 
 <center>
-<img src="Example figure\Example-03.jpg" width="100%" alt="Contents and Section page">
+<img src="Example figure\Example (3).jpg" width="100%" alt="Contents and Section page">
 </center>
 
 <center>
-<img src="Example figure\Example-10.jpg" width="100%" alt="Blocks">
+<img src="Example figure\Example (10).jpg" width="100%" alt="Contents and Section page">
 </center>
 
 <center>
-<img src="Example figure\Example-14.jpg" width="100%" alt="End page">
+<img src="Example figure\Example (14).jpg" width="100%" alt="Contents and Section page">
 </center>
 
 ## 🦾Shortcomings and improvements
