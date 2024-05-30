@@ -10,7 +10,7 @@ The Aarhus University LaTeX Beamer theme features a clean and straightforward de
 ## 🧩Functional example
 
 <center>
-<img src="Example figure\Example (1).jpg" width="100%" alt="Contents and Section page">
+<img src="Example figure\Example (1).jpg" width="100%" alt="Tile page">
 </center>
 
 <center>
@@ -18,11 +18,11 @@ The Aarhus University LaTeX Beamer theme features a clean and straightforward de
 </center>
 
 <center>
-<img src="Example figure\Example (10).jpg" width="100%" alt="Contents and Section page">
+<img src="Example figure\Example (10).jpg" width="100%" alt="Block page">
 </center>
 
 <center>
-<img src="Example figure\Example (14).jpg" width="100%" alt="Contents and Section page">
+<img src="Example figure\Example (14).jpg" width="100%" alt="End page">
 </center>
 
 ## 🦾Shortcomings and improvements
