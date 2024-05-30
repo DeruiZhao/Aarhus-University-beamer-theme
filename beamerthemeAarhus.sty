@@ -31,7 +31,7 @@
 
 % Font
 \RequirePackage{helvet}
-\RequirePackage{euler}
+\RequirePackage[euler-digits]{eulervm}
 \RequirePackage[osf]{libertinus}
 \renewcommand{\sfdefault}{phv}
 \RequirePackage{sourcecodepro}
@@ -135,7 +135,7 @@
 }
 
 % Block
-\newtcolorbox{beamerbox}[2]{boxrule=1pt,IfBlankTF={#2}{toprule=2pt}{title=#2},colback=#1!5!white,colframe=#1!75!black,left=0em, lefttitle=0em, arc=1pt}
+\newtcolorbox{beamerbox}[2]{boxrule=1pt, IfBlankTF={#2}{toprule=2pt}{title=#2}, colback=#1!5!white, colframe=#1!75!black, left=0em, right=0em, lefttitle=0em, righttitle=0em, arc=1pt}
 
 \renewenvironment{block}[1][]{\begin{beamerbox}{blue}{#1}}{\end{beamerbox}}
 
@@ -207,4 +207,5 @@
 \setbeamertemplate{itemize subsubitem}{\textcolor{blue}{$\diamond$}}
 
 % Footnote
+\renewcommand\thefootnote{\textcolor{blue}{\fnsymbol{footnote}}}
 \renewcommand{\footnotesize}{\tiny\selectfont\rmfamily}

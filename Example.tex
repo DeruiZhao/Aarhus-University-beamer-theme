@@ -2,7 +2,7 @@
 
 \usetheme{Aarhus}
 
-\usepackage{listings}
+\usepackage{minted}
 
 % Information to be included in the title page
 \title{Aarhus university beamer template}
@@ -60,50 +60,34 @@
 
 \subsection{Basic framework}
 
-\begin{frame}[fragile]
+\begin{frame}[fragile=singleslide]
     \frametitle{The basic framework of Beamer}
     To start working with \textit{Aarhus Beamer}, start a \LaTeX\ document with the preamble:
+    \renewcommand{\theFancyVerbLine}{\sffamily\textcolor{grey}{\scriptsize{\arabic{FancyVerbLine}}}}
     \begin{block}[Minimum Aarhus Beamer Document]
-        \lstset{
-            language=[LaTeX]Tex,
-            breakautoindent=true,
-            numbers=left,
-            aboveskip=0pt,
-            belowskip=0pt,
-            basicstyle=\ttfamily,
-            keywordstyle=\color{blue}\slshape,
-            morekeywords={usetheme}
-        }
-        \begin{lstlisting}
+        \begin{minted}[breaklines, linenos]{latex}
 \documentclass{beamer}
 \usetheme{Aarhus}
 \begin{document}
-    ...
+    \begin{frame}
+        ...
+    \end{frame}
 \end{document}
-        \end{lstlisting}
+        \end{minted}
     \end{block}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Title page}
     In order to set a typical title page, one must issue certain commands in the preamble:
+    \renewcommand{\theFancyVerbLine}{\sffamily\textcolor{grey}{\scriptsize{\arabic{FancyVerbLine}}}}
     \begin{block}[The commands for the Title page]
-        \lstset{
-            language=[LaTeX]Tex,
-            breakautoindent=true,
-            numbers=left,
-            aboveskip=0pt,
-            belowskip=0pt,
-            basicstyle=\ttfamily,
-            keywordstyle=\color{blue}\slshape,
-            morekeywords={subtitle}
-        }
-        \begin{lstlisting}
+        \begin{minted}[breaklines, linenos]{latex}
 \title{Aarhus university beamer template}
 \subtitle{Generate slides via \LaTeX}
 \author{Derui ZHAO}
 \date{\today}
-        \end{lstlisting}
+        \end{minted}
     \end{block}
 \end{frame}
 
