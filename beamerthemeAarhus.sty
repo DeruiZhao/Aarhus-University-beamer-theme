@@ -1,4 +1,4 @@
-\ProvidesPackage{beamerthemeAarhus}[Version 0.20240529]
+\ProvidesPackage{beamerthemeAarhus}[Version 0.20240602]
 
 % Required packages
 \RequirePackage{tikz}
@@ -10,7 +10,7 @@
 \RequirePackage{colortbl}
 \RequirePackage{hyperref}
 \RequirePackage{amsmath}
-\RequirePackage[perpage,para,symbol*,multiple]{footmisc}
+\RequirePackage[perpage,para,symbol*,multiple,norule]{footmisc}
 
 % Color
 \setbeamercolor{title}{fg=blue}
@@ -30,11 +30,10 @@
 \setbeamercolor{block title}{bg=darkBlue,fg=white}
 
 % Font
-\RequirePackage{helvet}
-\RequirePackage[euler-digits]{eulervm}
 \RequirePackage[osf]{libertinus}
-\renewcommand{\sfdefault}{phv}
+\RequirePackage{helvet}
 \RequirePackage{sourcecodepro}
+\RequirePackage[euler-digits]{eulervm}
 \RequirePackage[T1]{fontenc}
 \usefonttheme{professionalfonts}
 
@@ -208,4 +207,4 @@
 
 % Footnote
 \renewcommand\thefootnote{\textcolor{blue}{\fnsymbol{footnote}}}
-\renewcommand{\footnotesize}{\tiny\selectfont\rmfamily}
+\renewcommand{\footnotesize}{\tiny\selectfont\rmfamily\color{blue}}

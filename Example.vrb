@@ -1,14 +1,19 @@
-\frametitle{Block}
-    This theme comprises 4 distinct types of blocks: block (\texttt{block}), definition (\texttt{definition}), example (\texttt{example}) and alert (\texttt{alert}).
-    \begin{block}[Block]
-        This is block.
-    \end{block}
-    \begin{definition}[Definition]
-        Definition block.
-    \end{definition}
-    \begin{example}[Example]
-        Example block.
-    \end{example}
-    \begin{alert}[Alert]
-        Alert block.
-    \end{alert}
+\frametitle{Fonts}
+    \begin{itemize}
+        \item The default font is \textbf{Helvetica}, a sans-serif font.
+              \begin{minted}[breaklines]{latex}
+\RequirePackage{helvet}
+        \end{minted}
+        \item The serif font is \textbf{Libertinus}.
+              \begin{minted}[breaklines]{latex}
+\RequirePackage[osf]{libertinus}
+  \end{minted}
+        \item The typewriter font, i.e. mono font, is \textbf{Source Code Pro}.
+              \begin{minted}[breaklines]{latex}
+\RequirePackage{sourcecodepro}
+  \end{minted}
+        \item The mathematical font employs \textbf{Euler}.
+              \begin{minted}[breaklines]{latex}
+\RequirePackage[euler-digits]{eulervm}
+        \end{minted}
+    \end{itemize}

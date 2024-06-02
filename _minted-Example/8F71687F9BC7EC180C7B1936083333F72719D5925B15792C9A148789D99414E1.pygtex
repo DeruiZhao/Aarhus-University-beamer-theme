@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}RequirePackage}\PYG{n+nb}{\PYGZob{}}helvet\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}RequirePackage}\PYG{n+na}{[euler\PYGZhy{}digits]}\PYG{n+nb}{\PYGZob{}}eulervm\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}RequirePackage}\PYG{n+na}{[osf]}\PYG{n+nb}{\PYGZob{}}libertinus\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}RequirePackage}\PYG{n+nb}{\PYGZob{}}sourcecodepro\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}RequirePackage}\PYG{n+na}{[T1]}\PYG{n+nb}{\PYGZob{}}fontenc\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}usefonttheme}\PYG{n+nb}{\PYGZob{}}professionalfonts\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

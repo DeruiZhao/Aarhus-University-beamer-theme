@@ -3,6 +3,7 @@
 \usetheme{Aarhus}
 
 \usepackage{minted}
+\usemintedstyle[latex]{murphy}
 
 % Information to be included in the title page
 \title{Aarhus university beamer template}
@@ -142,13 +143,25 @@
     In the nomenclature of colour, the camel case is typically employed. That is to say, if the colour is \texttt{blue}, the lighter version is named \texttt{lightBlue}, and the dark version is named \texttt{darkBlue}.
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{Fonts}
     \begin{itemize}
         \item The default font is \textbf{Helvetica}, a sans-serif font.
+              \begin{minted}[breaklines]{latex}
+\RequirePackage{helvet}
+        \end{minted}
         \item The serif font is \textbf{Libertinus}.
+              \begin{minted}[breaklines]{latex}
+\RequirePackage[osf]{libertinus}
+  \end{minted}
         \item The typewriter font, i.e. mono font, is \textbf{Source Code Pro}.
+              \begin{minted}[breaklines]{latex}
+\RequirePackage{sourcecodepro}
+  \end{minted}
         \item The mathematical font employs \textbf{Euler}.
+              \begin{minted}[breaklines]{latex}
+\RequirePackage[euler-digits]{eulervm}
+        \end{minted}
     \end{itemize}
 \end{frame}
 
