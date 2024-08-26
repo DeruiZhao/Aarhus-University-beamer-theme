@@ -77,7 +77,7 @@
 % Place the logo in each slide's top left area
 \setbeamertemplate{headline}{
     \begin{beamercolorbox}[wd=.1\paperheight,ht=.12\paperheight,leftskip=.02\paperheight,rightskip=0pt]{}
-        \includegraphics[height=.1\paperheight]{image/aulogo.png}
+        \includegraphics[height=.1\paperheight]{images/AU_SEGL/BLUE/ausegl_blaa.pdf}
     \end{beamercolorbox}
 }
 
@@ -97,11 +97,11 @@
 % Title page
 \setbeamertemplate{title page}{
     \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
-        \node [anchor=east] at (\paperwidth, 0.5\paperheight){
-            \includegraphics[height=.97\paperheight]{image/A.png}
+        \node [anchor=center] at (\paperwidth, 0.5\paperheight){
+            \includegraphics[height=\paperheight]{images/AU_LOGO/BLUE/AU_LOGO.pdf}
         };
         \node [anchor=south east] at (\paperwidth, 0){
-            \includegraphics[height=.17\paperheight]{image/aulogo_uk_var1_blue_update.png}
+            \includegraphics[height=.17\paperheight]{images/AU_LOGO/BLUE/aulogo_uk_var1_blue.pdf}
         };
     \end{tikzpicture}
 
@@ -163,7 +163,7 @@
 
         \begin{tikzpicture}[remember picture, overlay, shift={(current page.east)}]
             \node [anchor=center, opacity=0.5] at (0,0){
-                \includegraphics[height=.86\paperheight]{image/aulogo.png}
+                \includegraphics[height=.86\paperheight]{images/AU_SEGL/BLUE/ausegl_blaa.png}
             };
         \end{tikzpicture}
     \end{frame}
@@ -185,10 +185,10 @@
             \fill[blue] (current page.south west) rectangle (current page.north east);
             \draw[lightBlue, line width=2pt] (\paperwidth/3,\paperheight/2) -- (\paperwidth*2/3,\paperheight/2);
             \node [anchor=center, opacity=0.5] at (current page.west){
-                \includegraphics[height=.86\paperheight]{image/aulogo.png}
+                \includegraphics[height=.86\paperheight]{images/AU_SEGL/WHITE/ausegl_hvid.png}
             };
             \node [anchor=center, opacity=0.5] at (current page.east){
-                \includegraphics[height=.86\paperheight]{image/aulogo.png}
+                \includegraphics[height=.86\paperheight]{images/AU_SEGL/WHITE/ausegl_hvid.png}
             };
         \end{tikzpicture}
         \centering
