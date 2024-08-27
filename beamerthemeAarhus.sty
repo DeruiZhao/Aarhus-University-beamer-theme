@@ -1,4 +1,4 @@
-\ProvidesPackage{beamerthemeAarhus}[Version 0.20240602]
+\ProvidesPackage{beamerthemeAarhus}[Version 0.20240827]
 
 % Required packages
 \RequirePackage{tikz}
@@ -11,6 +11,11 @@
 \RequirePackage{hyperref}
 \RequirePackage{amsmath}
 \RequirePackage[perpage,para,symbol*,multiple,norule]{footmisc}
+\RequirePackage[style=nature,citestyle=numeric-comp,sorting=none,hyperref=true,maxcitenames=2]{biblatex}
+\RequirePackage{xurl}
+\RequirePackage{caption}
+\RequirePackage{booktabs}
+\RequirePackage{nicematrix}
 
 % Color
 \setbeamercolor{title}{fg=blue}
@@ -157,9 +162,20 @@
 \AtBeginSection[]
 {
     \begingroup
-    \begin{frame}{Contents}
+    \begin{frame}
+        \frametitle{Contents}
         \hypersetup{hidelinks}
-        \tableofcontents[currentsection, hideothersubsections]
+        \begin{minipage}[.8\textheight]{.75\textwidth}
+            \begin{columns}
+                \begin{column}{.45\textwidth}
+                    \tableofcontents[currentsection, hideothersubsections, sections=1-6]
+                \end{column}
+
+                \begin{column}{.45\textwidth}
+                    \tableofcontents[currentsection, hideothersubsections, sections=7-12]
+                \end{column}
+            \end{columns}
+        \end{minipage}
 
         \begin{tikzpicture}[remember picture, overlay, shift={(current page.east)}]
             \node [anchor=center, opacity=0.5] at (0,0){
@@ -205,6 +221,43 @@
 \setbeamertemplate{itemize subitem}{\textcolor{blue}{$\diamond$}}
 \setbeamertemplate{itemize subsubitem}{\textcolor{blue}{$\diamond$}}
 
+% Color of enumerate
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{enumerate subsubitem}{fg=blue}
+
+% Size of itemize/enumerate
+\setbeamerfont{itemize/enumerate body}{}
+\setbeamerfont{itemize/enumerate subbody}{size=\small}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+
 % Footnote
 \renewcommand\thefootnote{\textcolor{blue}{\fnsymbol{footnote}}}
 \renewcommand{\footnotesize}{\tiny\selectfont\rmfamily\color{blue}}
+
+% Caption
+\captionsetup{
+    labelformat=simple,
+    labelsep=colon,
+    font={small, color=grey},
+    labelfont=bf,
+    justification=centering,
+    singlelinecheck=false,
+}
+% \captionsetup[figure]{aboveskip=-0.5em, belowskip=-1em}
+
+\setlength{\floatsep}{.5em plus .5em minus .3em}
+\setlength{\textfloatsep}{.5em plus .5em minus .3em}
+\setlength{\intextsep}{.5em plus .5em minus .3em}
+\setlength{\abovecaptionskip}{.5em plus .5em minus .5em}
+\setlength{\belowcaptionskip}{.5em plus .5em minus .5em}
+
+% Cite Configuration
+\DeclareCiteCommand{\cite}
+{\usebibmacro{prenote}}
+{\usebibmacro{citeindex}\textcolor{blue}{[\bibhyperref{\printfield{labelnumber}}]}}
+{\multicitedelim}
+{\usebibmacro{postnote}}
+
+% Setting of bibliography
+\renewcommand*{\bibfont}{\small}

@@ -39,21 +39,24 @@
     \frametitle{Beamer vs. PowerPoint}
     \framesubtitle{In tabular form}
     \begin{table}
-        \arrayrulewidth=1pt
+        % \arrayrulewidth=1pt
         \arrayrulecolor{blue}
-        \begin{tabular}{l p{.35\textwidth} p{.35\textwidth}}
-            \hline
+        \begin{NiceTabular}{l p{.35\textwidth} p{.35\textwidth}}[color-inside]
+            % \hline
+            \toprule
             \rowcolor{lightBlue}
             \textbf{Feature} & \textbf{Beamer}                                & \textbf{PowerPoint}                      \\
-            \hline
+            % \hline
+            \midrule
             Typesetting      & Utilise \LaTeX\ for professional typesetting   & WYS$\vert$WYG                            \\
             Mathematical     & Excellent support                              & Limited support                          \\
             Version control  & Easily integrates with version control systems & Lacks robust version control integration \\
             Graphics         & Require some \LaTeX\ knowledge                 & Intuitive drag-and-drop interface        \\
             Learning curve   & Steeper                                        & Easy                                     \\
             Cost             & Open-source and free                           & Require license                          \\
-            \hline
-        \end{tabular}
+            % \hline
+            \bottomrule
+        \end{NiceTabular}
     \end{table}
 \end{frame}
 
